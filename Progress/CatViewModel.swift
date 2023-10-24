@@ -16,7 +16,7 @@ import SwiftUI
       do {
         try await fetchCatsFromAPI()
       } catch {
-        print("Bad call")
+        print("Error fetching data from API")
       }
     }
   }
@@ -44,13 +44,17 @@ import SwiftUI
   func fetchCatsFromAPI() async throws {
     guard let url = URL(string: "https://api.thecatapi.com/v1/images/search?limit=10") else { return }
     
-    // ADD URLSESSION CONFIG HERE
     let configuration = URLSessionConfiguration.default
-    configuration.waitsForConnectivity = true               // wait for connectivity or fail immediately
-    configuration.timeoutIntervalForRequest = 10           // unit is seconds
-    configuration.allowsCellularAccess = true               // set to false to prevent cellular network access
-    configuration.allowsExpensiveNetworkAccess = true     // set to false to prevent expensive network access
-    configuration.allowsConstrainedNetworkAccess = true  // set to false to prevent network access in Low Data Mode
+    // wait for connectivity or fail immediately
+    configuration.waitsForConnectivity = true
+    // unit is seconds
+    configuration.timeoutIntervalForRequest = 10
+    // set to false to prevent cellular network access
+    configuration.allowsCellularAccess = true
+    // set to false to prevent expensive network access
+    configuration.allowsExpensiveNetworkAccess = true
+    // set to false to prevent network access in Low Data Mode
+    configuration.allowsConstrainedNetworkAccess = true
     
     let session = URLSession(configuration: configuration)
     
